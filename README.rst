@@ -72,11 +72,15 @@ To install ckanext-datasetthumbnail:
 
      pip install ckanext-datasetthumbnail
 
-3. Add ``datasetthumbnail`` to the ``ckan.plugins`` setting in your CKAN
+3. Pylons is deprecated and must be replaced with an updated version. If you followed the CKAN file naming conventions, run the following command::
+
+     sudo cp -R /usr/lib/ckan/default/src/ckanext-datasetthumbnail/patch_files/pylons /usr/lib/ckan/default/lib/python3.8/site-packages/pylons/
+    
+4. Add ``datasetthumbnail`` to the ``ckan.plugins`` setting in your CKAN
    config file (by default the config file is located at
    ``/etc/ckan/default/production.ini``).
 
-4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu::
+5. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu::
 
      sudo service apache2 reload
 
