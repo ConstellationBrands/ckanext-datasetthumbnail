@@ -1,6 +1,6 @@
 import sys
 import cgi
-import pylons.config as config
+from pylons import config
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckan.common import c
@@ -8,7 +8,7 @@ import requests
 import tempfile
 from PIL import Image
 from PIL import PngImagePlugin, JpegImagePlugin
-from StringIO import StringIO
+from io import StringIO
 import ckanext
 
 def thumbnail_url(package_id):
@@ -25,17 +25,17 @@ def thumbnail_url(package_id):
     :rtype: string
     '''
 
-    cfg_show = config.get('ckan.datasetthumbnail.show_thumbnail', False)
+    cfg_show = config.get('ckan.datasetthumbnail.show_thumbnail', True)
     show_thumbnail = toolkit.asbool(cfg_show)
 
-    cfg_auto_generate = config.get('ckan.datasetthumbnail.auto_generate', False)
+    cfg_auto_generate = config.get('ckan.datasetthumbnail.auto_generate', True)
     auto_generate = toolkit.asbool(cfg_auto_generate)
 
     if not show_thumbnail:
         return None
 
     if package_id == None or len(package_id) == 0:
-        return '/image-icon.png'
+        return 'https://source.unsplash.com/collection/1986859/random?sig='
 
     package = toolkit.get_action('package_show')(data_dict={'id': package_id})
 
@@ -50,7 +50,7 @@ def thumbnail_url(package_id):
         if c.user != None and len(c.user) > 0:
             url = create_thumbnail(package_id)
 
-    return url or '/image-icon.png'
+    return url or 'https://source.unsplash.com/collection/1986859/random?sig='
 
 
 def create_thumbnail(package_id, resource_id=None, width=None, height=None):
