@@ -35,7 +35,7 @@ def thumbnail_url(package_id):
         return None
 
     if package_id == None or len(package_id) == 0:
-        return 'https://source.unsplash.com/collection/1986859/random?sig='
+        return '/base/images/datasource_default.png'
 
     package = toolkit.get_action('package_show')(data_dict={'id': package_id})
 
@@ -50,7 +50,7 @@ def thumbnail_url(package_id):
         if c.user != None and len(c.user) > 0:
             url = create_thumbnail(package_id)
 
-    return url or 'https://source.unsplash.com/collection/1986859/random?sig='
+    return url or '/base/images/datasource_default.png'
 
 
 def create_thumbnail(package_id, resource_id=None, width=None, height=None):
